@@ -8,15 +8,16 @@ from PyQt5.QtWidgets import (
 from instr import *
 
 class FinalWin(QWidget):
-    def __init__(self):
+    def __init__(self,exp):
         ''' окно, в котором проводится опрос '''
         super().__init__()
-
+        self.exp=exp
         # создаём и настраиваем графические элелементы:
         self.initUI()
 
         #устанавливает, как будет выглядеть окно (надпись, размер, место)
         self.set_appear()
+        
         
         # старт:
         self.show()
@@ -24,7 +25,7 @@ class FinalWin(QWidget):
     def initUI(self):
         ''' создает графические элементы '''
         self.workh_text = QLabel(txt_workheart)
-        self.index_text = QLabel(txt_index)
+        self.index_text = QLabel(self.result())
 
         self.layout_line = QVBoxLayout()
         self.layout_line.addWidget(self.index_text, alignment = Qt.AlignCenter)
@@ -36,3 +37,7 @@ class FinalWin(QWidget):
         self.setWindowTitle(txt_finalwin)
         self.resize(win_width, win_height)
         self.move(win_x, win_y)
+
+    def result(self):
+        self.index= ((self.exp.t1+self.exp.t2+self.exp.t3) * 4 - 200)/10
+        return str(self.index)
